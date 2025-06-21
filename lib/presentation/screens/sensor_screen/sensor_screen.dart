@@ -14,15 +14,15 @@ class SensorsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => SensorCubit(SensorRepositoryImpl(FirebaseSensorDatasource ()))..addSensor(
         SensorModel(
-          id: 'Gas_sensor',
+          id: 'temperature_sensor',
           timestamp: DateTime.now(),
-          eventType: 'gas_leak',
-          severity: 'critical',
-          sensorType: 'mq2',
-          name: 'Kitchen Gas Sensor',
+          eventType: 'temperature_update',
+          severity: 'normal',
+          sensorType: 'LM35',
+          name: 'Kitchen Temperature Sensor',
           location: 'Kitchen',
-          value: 350.0,
-          unit: 'ppm',
+          value: 30.5,
+          unit: 'Celsius',
         ),
       ),
       child: Scaffold(

@@ -16,10 +16,10 @@ class DevicesScreen extends StatelessWidget {
     return BlocProvider(
       create: (_) => DeviceCubit(DeviceRepositoryImpl(FirebaseDeviceDatasource()))..addDevice( 
         DeviceModel(
-          id: 'bedroom_door_lock',
-          type: 'Door Lock',
-          location: 'Bedroom',
-          isActive: true,
+          id: 'leving_room_light',
+          type: 'Light',
+          location: 'Living Room',
+          isActive: false,
         ),
       )..loadDevices(),
       child: Scaffold(

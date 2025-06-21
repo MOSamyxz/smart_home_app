@@ -44,37 +44,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDJrvWwPgukuWA45_vZskDa4JZF0j4fi-E',
-    appId: '1:846727777448:web:2dcabcac184ddbeccbc69d',
-    messagingSenderId: '846727777448',
-    projectId: 'smarthome-7ea8c',
-    authDomain: 'smarthome-7ea8c.firebaseapp.com',
-    storageBucket: 'smarthome-7ea8c.firebasestorage.app',
+    apiKey: 'AIzaSyCpSbxg9P3uMryWnm--ooZiiCrLmzJE5kE',
+    appId: '1:635310811545:web:634e092397930c7c170b08',
+    messagingSenderId: '635310811545',
+    projectId: 'smarthome-2b3d6',
+    authDomain: 'smarthome-2b3d6.firebaseapp.com',
+    storageBucket: 'smarthome-2b3d6.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBX0fK8j_oQIxENpLFLtlhDeh12NOnlNFQ',
-    appId: '1:846727777448:android:26dd8c8d49d97981cbc69d',
-    messagingSenderId: '846727777448',
-    projectId: 'smarthome-7ea8c',
-    storageBucket: 'smarthome-7ea8c.firebasestorage.app',
+    apiKey: 'AIzaSyCvBWwgoqHcoaS9TdbCPqwTjSdkmnYW904',
+    appId: '1:635310811545:android:868bbe5822c090bb170b08',
+    messagingSenderId: '635310811545',
+    projectId: 'smarthome-2b3d6',
+    storageBucket: 'smarthome-2b3d6.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBObWhsx1yHZ4JOukhLCbc0EI278o9Fpy0',
-    appId: '1:846727777448:ios:020cae4aba45b2efcbc69d',
-    messagingSenderId: '846727777448',
-    projectId: 'smarthome-7ea8c',
-    storageBucket: 'smarthome-7ea8c.firebasestorage.app',
+    apiKey: 'AIzaSyAok3dYLjugAOh__jkKkxTfQprRguRUDYw',
+    appId: '1:635310811545:ios:5b328bd8f74b4c6d170b08',
+    messagingSenderId: '635310811545',
+    projectId: 'smarthome-2b3d6',
+    storageBucket: 'smarthome-2b3d6.firebasestorage.app',
     iosBundleId: 'com.example.smartHomeApp',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDJrvWwPgukuWA45_vZskDa4JZF0j4fi-E',
-    appId: '1:846727777448:web:94da2a504a112083cbc69d',
-    messagingSenderId: '846727777448',
-    projectId: 'smarthome-7ea8c',
-    authDomain: 'smarthome-7ea8c.firebaseapp.com',
-    storageBucket: 'smarthome-7ea8c.firebasestorage.app',
+    apiKey: 'AIzaSyCpSbxg9P3uMryWnm--ooZiiCrLmzJE5kE',
+    appId: '1:635310811545:web:e2eed8a9140cc824170b08',
+    messagingSenderId: '635310811545',
+    projectId: 'smarthome-2b3d6',
+    authDomain: 'smarthome-2b3d6.firebaseapp.com',
+    storageBucket: 'smarthome-2b3d6.firebasestorage.app',
   );
 }
