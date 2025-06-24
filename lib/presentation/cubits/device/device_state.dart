@@ -8,8 +8,9 @@ class DeviceLoading extends DeviceState {}
 
 class DeviceLoaded extends DeviceState {
   final List<DeviceEntity> devices;
+  final Set<String> loadingDeviceIds;
 
-  DeviceLoaded(this.devices);
+  DeviceLoaded(this.devices, {this.loadingDeviceIds = const {}});
 }
 
 class DeviceError extends DeviceState {

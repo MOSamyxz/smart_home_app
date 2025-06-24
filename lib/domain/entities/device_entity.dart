@@ -10,4 +10,19 @@ class DeviceEntity {
     required this.location,
     required this.isActive,
   });
+
+  DeviceEntity copyWith({
+  String? id,
+  String? type,
+  String? location,
+  bool? isActive,
+}) {
+  return DeviceEntity(
+    id: id ?? this.id,
+    type: type ?? this.type,
+    location: location ?? this.location,
+    isActive: isActive ?? this.isActive,
+  );
+}
+
 }

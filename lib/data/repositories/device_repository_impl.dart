@@ -11,17 +11,27 @@ class DeviceRepositoryImpl implements DeviceRepository {
   @override
   Future<List<DeviceEntity>> getAllDevices() async {
     final models = await datasource.getAllDevices();
-    return models.map((e) => DeviceEntity(
-      id: e.id,
-      type: e.type,
-      location: e.location,
-      isActive: e.isActive,
-    )).toList();
+    return models
+        .map(
+          (e) => DeviceEntity(
+            id: e.id,
+            type: e.type,
+            location: e.location,
+            isActive: e.isActive,
+          ),
+        )
+        .toList();
   }
 
   @override
-  Future<void> addDevice(DeviceModel device) async {
-    await datasource.addDevice(device);
-    
+  Future<void> addDevice(DeviceEntity device) async {
+    final model = DeviceModel.fromEntity(device);
+    await datasource.addDevice(model);
+  }
+
+  @override
+  Future<void> updateDevice(DeviceEntity device, bool isActive) async {
+    final model = DeviceModel.fromEntity(device);
+    await datasource.updateDevice(model, isActive);
   }
 }

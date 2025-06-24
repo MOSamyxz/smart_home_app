@@ -25,9 +25,7 @@ class SensorsScreen extends StatelessWidget {
           unit: 'Celsius',
         ),
       ),
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Sensors')),
-        body: BlocBuilder<SensorCubit, SensorState>(
+      child: BlocBuilder<SensorCubit, SensorState>(
           builder: (context, state) {
             if (state is SensorLoading) {
               return const Center(child: CircularProgressIndicator());
@@ -57,7 +55,6 @@ class SensorsScreen extends StatelessWidget {
             return const Center(child: Text('No data'));
           },
         ),
-      ),
     );
   }
 }

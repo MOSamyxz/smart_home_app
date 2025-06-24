@@ -1,15 +1,14 @@
 
-class DeviceModel {
-  final String id;
-  final String type;
-  final String location;
-  final bool isActive;
+import 'package:smart_home_app/domain/entities/device_entity.dart';
+
+class DeviceModel extends DeviceEntity {
+
 
   DeviceModel({
-    required this.id,
-    required this.type,
-    required this.location,
-    required this.isActive,
+    required super.id,
+    required super.type,
+    required super.location,
+    required super.isActive,
   });
 
   factory DeviceModel.fromMap(Map<String, dynamic> map, String docId) {
@@ -27,5 +26,14 @@ class DeviceModel {
       'location': location,
       'isActive': isActive,
     };
+  }
+
+  factory DeviceModel.fromEntity(DeviceEntity entity) {
+    return DeviceModel(
+      id: entity.id,
+      type: entity.type,
+      location: entity.location,
+      isActive: entity.isActive,
+    );
   }
 }

@@ -29,4 +29,10 @@ Future<List<DeviceModel>> getAllDevices() async {
   Future<void> addDevice(DeviceModel device) async {
     await _db.child(device.id).set(device.toJson());
   }
+
+  Future<void> updateDevice(DeviceModel device, bool isActive) async {
+    await _db.child(device.id).update({
+      'isActive': isActive,
+    });
+  }
 }
