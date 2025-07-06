@@ -12,9 +12,9 @@ class Background extends StatelessWidget {
         Container(decoration: BoxDecoration(color: AppColors.darkBackground)),
         Positioned(
           top: -275,
-          left: -290,
+          left: -500,
           child: BlurCircle(
-            size: 300,
+            size: 350,
             blurSigma: 70,
             colorOne: AppColors.tertiary,
             colorTwo: AppColors.secondary,
@@ -43,25 +43,13 @@ class BlurCircle extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Row(
-          children: [
-            Container(
-              width: size,
-              height: size,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: colorOne.withValues(alpha: 0.7),
-              ),
-            ),
-            Container(
-              width: size,
-              height: size,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: colorTwo.withValues(alpha: 0.7),
-              ),
-            ),
-          ],
+        Container(
+          width: size,
+          height: size,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: colorTwo.withValues(alpha: 0.55),
+          ),
         ),
         ClipRRect(
           borderRadius: BorderRadius.circular(10),

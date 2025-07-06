@@ -23,6 +23,18 @@ class DeviceRepositoryImpl implements DeviceRepository {
         .toList();
   }
 
+@override
+Stream<List<DeviceEntity>> streamAllDevices() {
+  return datasource.streamAllDevices().map((models) {
+    return models.map((e) => DeviceEntity(
+      id: e.id,
+      type: e.type,
+      location: e.location,
+      isActive: e.isActive,
+    )).toList();
+  });
+}
+
   @override
   Future<void> addDevice(DeviceEntity device) async {
     final model = DeviceModel.fromEntity(device);

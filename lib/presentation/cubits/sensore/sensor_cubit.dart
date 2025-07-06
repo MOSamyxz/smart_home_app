@@ -1,13 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_home_app/data/models/sensor_model.dart';
+import 'package:smart_home_app/domain/entities/sensor_entity.dart';
 import 'package:smart_home_app/domain/repositories/sensor_repository.dart';
 import 'sensor_state.dart';
 
 class SensorCubit extends Cubit<SensorState> {
   final SensorRepository repository;
-
+ 
   SensorCubit(this.repository) : super(SensorInitial());
-
   Future<void> fetchSensors() async {
     emit(SensorLoading());
     try {
@@ -17,6 +19,22 @@ class SensorCubit extends Cubit<SensorState> {
       emit(SensorError(e.toString()));
     }
   }
+
+  StreamSubscription? _sensorsSubscription;
+
+void streamSensors() {
+  _sensorsSubscription?.cancel();
+  _sensorsSubscription = repository.streamAllSensors().listen((sensors) {
+    emit(SensorLoaded(
+      sensors,
+    ));
+  });
+}
+@override
+Future<void> close() {
+  _sensorsSubscription?.cancel();
+  return super.close();
+}
   Future<void> addSensor(SensorModel sensor) async {
     try {
       await repository.addSensor(sensor);

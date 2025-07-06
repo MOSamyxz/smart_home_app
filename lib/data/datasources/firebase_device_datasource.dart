@@ -26,6 +26,22 @@ Future<List<DeviceModel>> getAllDevices() async {
     return [];
   }
 }
+
+Stream<List<DeviceModel>> streamAllDevices() {
+  return _db.onValue.map((event) {
+    final data = event.snapshot.value;
+
+    if (data is Map) {
+      final rawData = Map<String, dynamic>.from(data);
+      return rawData.entries.map((e) {
+        return DeviceModel.fromMap(Map<String, dynamic>.from(e.value), e.key);
+      }).toList();
+    } else {
+      return [];
+    }
+  });
+}
+
   Future<void> addDevice(DeviceModel device) async {
     await _db.child(device.id).set(device.toJson());
   }

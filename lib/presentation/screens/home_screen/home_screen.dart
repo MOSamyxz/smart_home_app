@@ -1,57 +1,54 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_home_app/core/theming.dart/app_colors.dart';
-import 'package:smart_home_app/core/theming.dart/app_size.dart';
-import 'package:smart_home_app/core/theming.dart/app_text_styles.dart';
-import 'package:smart_home_app/core/utils/background.dart';
+import 'package:smart_home_app/data/datasources/firebase_device_datasource.dart';
+import 'package:smart_home_app/data/datasources/weather_remote_datasource.dart';
+import 'package:smart_home_app/data/repositories/device_repository_impl.dart';
+import 'package:smart_home_app/data/repositories/weather_repository_impl.dart';
 import 'package:smart_home_app/presentation/cubits/home/home_cubit.dart';
-import 'package:smart_home_app/presentation/screens/device_screen/device_screen.dart';
-import 'package:smart_home_app/presentation/screens/sensor_screen/sensor_screen.dart';
+import 'package:smart_home_app/presentation/cubits/home/home_state.dart';
+import 'package:smart_home_app/presentation/widgets/device_card.dart';
+import 'package:smart_home_app/presentation/widgets/weather_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  final _pages = const [DevicesScreen(), SensorsScreen()];
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(),
-      child: BlocBuilder<HomeCubit, int>(
-        builder: (context, currentIndex) {
-          return Scaffold(
-            body: Stack(
+      create:
+          (_) => HomeCubit(
+            DeviceRepositoryImpl(FirebaseDeviceDatasource()),
+            WeatherRepositoryImpl(WeatherRemoteDataSource()),
+          )..init(),
+      child: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          if (state is HomeLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is HomeLoaded) {
+            final weather = state.weather;
+
+            return Column(
               children: [
-                const Background(),
-                Column(
-                  children: [
-                      AppSize.verticalSpacer(40.0),
-           Text('Smartora',
-              style: AppTextStyles.getTextTheme(context).headlineLarge?.copyWith(
-             
-              )),
-                    Expanded(child: _pages[currentIndex]),
-                  ],
+                if (weather != null) WeatherWidget(),
+
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: state.devices.length,
+                    itemBuilder: (context, index) {
+                      final device = state.devices[index];
+                      return DeviceCardItem(device: device);
+                    },
+                  ),
                 ),
               ],
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: currentIndex,
-              onTap: (index) => context.read<HomeCubit>().changeTab(index),
-              selectedItemColor: AppColors.primary,
-              unselectedItemColor: AppColors.grey,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.devices_other),
-                  label: 'الأجهزة',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.sensors),
-                  label: 'المستشعرات',
-                ),
-              ],
-            ),
-          );
+            );
+          } else if (state is HomeError) {
+            log('Error loading devices: ${state.message}');
+            return Center(child: Text('Error: ${state.message}'));
+          }
+          return Center(child: Text('No Devices'));
         },
       ),
     );

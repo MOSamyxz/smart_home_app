@@ -39,6 +39,9 @@ dependencies:
   flutter:
     sdk: flutter
   google_fonts: ^6.2.1
+  iconsax: ^0.0.8
+  geolocator: ^14.0.1
+  weather_icons: ^3.0.0
 
 dev_dependencies:
 

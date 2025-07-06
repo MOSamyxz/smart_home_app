@@ -10,24 +10,35 @@ class SensorRepositoryImpl implements SensorRepository {
   SensorRepositoryImpl(this.datasource);
 
   @override
-  Future<List<SensorEntity>> getAllSensors() async {
-    final models = await datasource.getAllSensors();
-    return models.map((e) => SensorEntity(
-      id: e.id,
-      timestamp: e.timestamp,
-      eventType: e.eventType,
-      severity: e.severity,
-      sensorType: e.sensorType,
-      name: e.name,
-      location: e.location,
-      value: e.value,
-      unit: e.unit,
-    )).toList();
+  Stream<List<SensorEntity>> streamAllSensors() {
+    return datasource.streamAllSensors().map((models) {
+      return models
+          .map(
+            (e) => SensorEntity(
+              id: e.id,
+              timestamp: e.timestamp,
+              eventType: e.eventType,
+              severity: e.severity,
+              sensorType: e.sensorType,
+              name: e.name,
+              location: e.location,
+              value: e.value,
+              unit: e.unit,
+            ),
+          )
+          .toList();
+    });
   }
-
+  
   @override
-  Future<void> addSensor(SensorModel sensor) async {
-    await datasource.addSensor(sensor);
-
+  Future<void> addSensor(SensorModel sensor) {
+    // TODO: implement addSensor
+    throw UnimplementedError();
   }
-} 
+  
+  @override
+  Future<List<SensorEntity>> getAllSensors() {
+    // TODO: implement getAllSensors
+    throw UnimplementedError();
+  }
+}

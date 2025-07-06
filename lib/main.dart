@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:smart_home_app/presentation/screens/home_screen/home_screen.dart';
+import 'package:smart_home_app/presentation/screens/layout_screen/Layout_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Smart Home App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(useMaterial3: true),
-      home:HomeScreen(),
+      home:LayoutScreen(),
     );
   }
 }
