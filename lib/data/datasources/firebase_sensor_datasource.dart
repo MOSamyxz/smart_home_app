@@ -4,7 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import '../models/sensor_model.dart';
 
 class FirebaseSensorDatasource {
-  final _db = FirebaseDatabase.instance.ref('sensors');
+  final _db = FirebaseDatabase.instance.ref('latestSensors');
 
 Future<List<SensorModel>> getAllSensors() async {
   final snapshot = await _db.get();

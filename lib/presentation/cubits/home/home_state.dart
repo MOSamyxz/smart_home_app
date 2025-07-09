@@ -18,6 +18,17 @@ class HomeLoaded extends HomeState {
     this.weather,
     this.loadingHomeIds = const {},
   });
+  HomeLoaded copyWith({
+    List<DeviceEntity>? devices,
+    Weather? weather,
+    Set<String>? loadingHomeIds,
+  }) {
+    return HomeLoaded(
+      devices: devices ?? this.devices,
+      weather: weather ?? this.weather,
+      loadingHomeIds: loadingHomeIds ?? this.loadingHomeIds,
+    );
+  }
 }
 
 class HomeError extends HomeState {

@@ -5,7 +5,6 @@ class DeviceModel extends DeviceEntity {
 
 
   DeviceModel({
-    required super.id,
     required super.type,
     required super.location,
     required super.isActive,
@@ -13,10 +12,9 @@ class DeviceModel extends DeviceEntity {
 
   factory DeviceModel.fromMap(Map<String, dynamic> map, String docId) {
     return DeviceModel(
-      id: docId,
       type: map['type'] ?? '',
       location: map['location'] ?? '',
-      isActive: map['isActive'] ?? false,
+      isActive: map['state'] ?? false,
     );
   }
 
@@ -24,13 +22,12 @@ class DeviceModel extends DeviceEntity {
     return {
       'type': type,
       'location': location,
-      'isActive': isActive,
+      'state': isActive,
     };
   }
 
   factory DeviceModel.fromEntity(DeviceEntity entity) {
     return DeviceModel(
-      id: entity.id,
       type: entity.type,
       location: entity.location,
       isActive: entity.isActive,

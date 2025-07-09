@@ -6,12 +6,13 @@ import 'package:smart_home_app/core/theming.dart/app_text_styles.dart';
 import 'package:smart_home_app/core/utils/background.dart';
 import 'package:smart_home_app/presentation/cubits/layout/layout_cubit.dart';
 import 'package:smart_home_app/presentation/screens/home_screen/home_screen.dart';
+import 'package:smart_home_app/presentation/screens/sensor_reading_screen/sensor_reading_screen.dart';
 import 'package:smart_home_app/presentation/screens/sensor_screen/sensor_screen.dart';
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({super.key});
 
-  final _pages = const [HomeScreen(), SensorsScreen()];
+  final _pages = const [HomeScreen(), SensorsScreen(), SensorReadingScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,10 @@ class LayoutScreen extends StatelessWidget {
                 BottomNavigationBarItem(
                   icon: Icon(Icons.sensors),
                   label: 'المستشعرات',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.area_chart),
+                  label: 'قراءات سابقة',
                 ),
               ],
             ),

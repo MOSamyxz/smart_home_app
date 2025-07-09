@@ -6,6 +6,7 @@ import 'package:smart_home_app/data/datasources/firebase_device_datasource.dart'
 import 'package:smart_home_app/data/datasources/weather_remote_datasource.dart';
 import 'package:smart_home_app/data/repositories/device_repository_impl.dart';
 import 'package:smart_home_app/data/repositories/weather_repository_impl.dart';
+import 'package:smart_home_app/domain/usecases/device_usecase.dart';
 import 'package:smart_home_app/presentation/cubits/home/home_cubit.dart';
 import 'package:smart_home_app/presentation/cubits/home/home_state.dart';
 import 'package:smart_home_app/presentation/widgets/device_card.dart';
@@ -19,7 +20,9 @@ class HomeScreen extends StatelessWidget {
     return BlocProvider(
       create:
           (_) => HomeCubit(
-            DeviceRepositoryImpl(FirebaseDeviceDatasource()),
+            DeviceUsecase(
+              DeviceRepositoryImpl(FirebaseDeviceDatasource()),
+            ),
             WeatherRepositoryImpl(WeatherRemoteDataSource()),
           )..init(),
       child: BlocBuilder<HomeCubit, HomeState>(

@@ -1,0 +1,22 @@
+{
+    "files.associations": {
+        "atomic": "cpp",
+        "forward_list": "cpp",
+        "ios": "cpp",
+        "list": "cpp",
+        "system_error": "cpp",
+        "vector": "cpp",
+        "xhash": "cpp",
+        "xiosbase": "cpp",
+        "xstring": "cpp",
+        "xtree": "cpp",
+        "ostream": "cpp",
+        "array": "cpp",
+        "chrono": "cpp",
+        "format": "cpp",
+        "initializer_list": "cpp",
+        "xutility": "cpp",
+        "set": "cpp",
+        "xlocinfo": "cpp"
+    }
+}

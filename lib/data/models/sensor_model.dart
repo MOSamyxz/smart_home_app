@@ -1,30 +1,23 @@
-class SensorModel {
-  final String id;
-  final DateTime  timestamp;
-  final String eventType;
-  final String severity;
-  final String sensorType;
-  final String name;
-  final double value;
-  final String unit;
-  final String location;
+import 'package:smart_home_app/domain/entities/sensor_entity.dart';
+
+class SensorModel extends SensorEntity{
 
   SensorModel({
-    required this.id,
-    required this.timestamp,
-    required this.eventType,
-    required this.severity,
-    required this.sensorType,
-    required this.name,
-    required this.value,
-    required this.unit,
-    required this.location,
+    required super.id,
+    required super.timestamp,
+    required super.eventType,
+    required super.severity,
+    required super.sensorType,
+    required super.name,
+    required super.value,
+    required super.unit,
+    required super.location,
   });
 
   factory SensorModel.fromMap(Map<String, dynamic> map, String id) {
     return SensorModel(
       id: id,
-      timestamp: DateTime.tryParse(map['timestamp'] ?? '') ?? DateTime.now(),
+      timestamp: DateTime.tryParse((map['time'].toString())) ?? DateTime.now(),
       eventType: map['eventType'] ?? '',
       severity: map['severity'] ?? '',
       sensorType: map['sensorType'] ?? '',
@@ -37,7 +30,7 @@ class SensorModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'timestamp': timestamp.toIso8601String(),
+      'time': timestamp.toIso8601String(),
       'eventType': eventType,
       'severity': severity,
       'sensorType': sensorType,

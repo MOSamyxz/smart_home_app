@@ -8,26 +8,11 @@ class DeviceRepositoryImpl implements DeviceRepository {
 
   DeviceRepositoryImpl(this.datasource);
 
-  @override
-  Future<List<DeviceEntity>> getAllDevices() async {
-    final models = await datasource.getAllDevices();
-    return models
-        .map(
-          (e) => DeviceEntity(
-            id: e.id,
-            type: e.type,
-            location: e.location,
-            isActive: e.isActive,
-          ),
-        )
-        .toList();
-  }
 
 @override
 Stream<List<DeviceEntity>> streamAllDevices() {
   return datasource.streamAllDevices().map((models) {
     return models.map((e) => DeviceEntity(
-      id: e.id,
       type: e.type,
       location: e.location,
       isActive: e.isActive,
@@ -35,15 +20,12 @@ Stream<List<DeviceEntity>> streamAllDevices() {
   });
 }
 
-  @override
-  Future<void> addDevice(DeviceEntity device) async {
-    final model = DeviceModel.fromEntity(device);
-    await datasource.addDevice(model);
-  }
+
 
   @override
-  Future<void> updateDevice(DeviceEntity device, bool isActive) async {
-    final model = DeviceModel.fromEntity(device);
-    await datasource.updateDevice(model, isActive);
+  Future<void> updateDevice(bool isActive, String device) async {
+
+    await datasource.updateDevice( isActive , device);
+
   }
 }

@@ -19,8 +19,8 @@ class DeviceCardItem extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       buildWhen: (previous, current) {
         if (previous is HomeLoaded && current is HomeLoaded) {
-          return previous.loadingHomeIds.contains(device.id) !=
-              current.loadingHomeIds.contains(device.id);
+          return previous.loadingHomeIds.contains(device.type) !=
+              current.loadingHomeIds.contains(device.type);
         }
         return true;
       },
@@ -64,7 +64,7 @@ class DeviceCardItem extends StatelessWidget {
                 Row(
                   children: [
                     Icon(
-                      Iconsax.lamp,
+                      getIcon(device.type),
                       color:
                           device.isActive
                               ? AppColors.darkBackground
@@ -113,5 +113,22 @@ class DeviceCardItem extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+getIcon(String device){
+  switch (device) {
+    case 'led':
+      return Icons.lightbulb;
+    case 'fan':
+      return Icons.ac_unit;
+    case 'pump':
+      return Icons.water;
+    case 'garage':
+      return Iconsax.home_hashtag;
+    case 'buzzer':
+      return Icons.notifications_active;
+    default:
+      return Icons.device_unknown;
   }
 }

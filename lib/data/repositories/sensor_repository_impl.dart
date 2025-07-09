@@ -32,13 +32,11 @@ class SensorRepositoryImpl implements SensorRepository {
   
   @override
   Future<void> addSensor(SensorModel sensor) {
-    // TODO: implement addSensor
     throw UnimplementedError();
   }
   
   @override
   Future<List<SensorEntity>> getAllSensors() {
-    // TODO: implement getAllSensors
     throw UnimplementedError();
   }
 }

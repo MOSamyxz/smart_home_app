@@ -50,28 +50,43 @@ class SensorsCardItem extends StatelessWidget {
                     
                   ],
                 ),
-                Text(
-                  sensors.name,
-                  style: AppTextStyles.titleSmall.copyWith(
-                    color:
-                       AppColors.white,
-                  ),
+                Row(
+                  children: [
+                    Icon(
+                      getIcon(sensors.sensorType),
+                      color:
+                        AppColors.white,
+                    ), 
+                    AppSize.horizontalSpacer(8.0),
+                     Text(
+                      sensors.sensorType,
+                      style: AppTextStyles.titleSmall.copyWith(
+                        color:
+                           AppColors.white,
+                      ),
+                    ),
+                  ],
                 ),
                 AppSize.verticalSpacer(4.0),
-                  Text(
-                      'location: ${sensors.location}',
-                      style: AppTextStyles.bodyMedium.copyWith(
-                        color: AppColors.grey,
-                      ),
-                  
-                    ),
-                    AppSize.verticalSpacer(4.0),
-                    Text(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                          'location: ${sensors.location}',
+                          style: AppTextStyles.bodyMedium.copyWith(
+                            color: AppColors.grey,
+                          ),
+                      
+                        ),
+                         Text(
                       'value: ${sensors.value} ${sensors.unit}',
                       style: AppTextStyles.bodyMedium.copyWith(
                         color: AppColors.grey,
                       ),
                     ),
+                    ],
+                  ),
+                   
                 AppSize.verticalSpacer(4.0),
                 Row(
                   children: [
@@ -94,5 +109,24 @@ class SensorsCardItem extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+getIcon(String sensor){
+  switch (sensor) {
+    case 'dht11_humidity':
+      return Icons.water_drop;
+    case 'dht11_temp':
+      return Icons.thermostat;
+    case 'ldr':
+      return Icons.wb_sunny;
+    case 'mq2':
+      return Icons.smoking_rooms_rounded;
+    case 'fc-28':
+      return Icons.grass;
+    case 'ultrasonic':
+      return Icons.social_distance;
+    default:
+      return Icons.device_unknown;
   }
 }
