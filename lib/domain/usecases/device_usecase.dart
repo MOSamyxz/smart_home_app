@@ -13,4 +13,5 @@ class DeviceUsecase {
   Stream<List<DeviceEntity>> streamAllDevices() {
     return deviceRepository.streamAllDevices();
   }
+
 }

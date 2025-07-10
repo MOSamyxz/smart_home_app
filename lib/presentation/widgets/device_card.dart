@@ -11,7 +11,7 @@ import 'package:smart_home_app/presentation/cubits/home/home_cubit.dart';
 import 'package:smart_home_app/presentation/cubits/home/home_state.dart';
 
 class DeviceCardItem extends StatelessWidget {
-  const DeviceCardItem({super.key, required this.device});
+  const DeviceCardItem({super.key, required this.device,});
 
   final DeviceEntity device;
 
@@ -46,7 +46,7 @@ class DeviceCardItem extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.darkBackground,
               gradient:
-                  device.isActive
+                 device.isActive
                       ? LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -67,7 +67,7 @@ class DeviceCardItem extends StatelessWidget {
                     Icon(
                       getIcon(device.type),
                       color:
-                          device.isActive
+                   device.     isActive
                               ? AppColors.darkBackground
                               : AppColors.white,
                     ),
@@ -104,6 +104,12 @@ class DeviceCardItem extends StatelessWidget {
                 AppSize.verticalSpacer(4.0),
                 Text(
                  getLocation ( device.location,  context),
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: AppColors.grey,
+                  ),
+                ),
+                   Text(
+                 device. isActive.toString(),
                   style: AppTextStyles.bodyMedium.copyWith(
                     color: AppColors.grey,
                   ),

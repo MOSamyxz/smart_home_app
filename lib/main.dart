@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
             ],
             supportedLocales: S.delegate.supportedLocales,
             theme: ThemeData.dark(useMaterial3: true),
-            home: const LayoutScreen(),
+            home: LayoutScreen(),
           );
         },
       ),

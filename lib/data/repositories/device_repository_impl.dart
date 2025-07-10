@@ -11,13 +11,13 @@ class DeviceRepositoryImpl implements DeviceRepository {
 
 @override
 Stream<List<DeviceEntity>> streamAllDevices() {
-  return datasource.streamAllDevices().map((models) {
-    return models.map((e) => DeviceEntity(
-      type: e.type,
-      location: e.location,
-      isActive: e.isActive,
-    )).toList();
-  });
+    return datasource.streamMergedDevices().map((models) {
+      return models.map((e) => DeviceEntity(
+        type: e.type,
+        location: e.location,
+        isActive: e.isActive,
+      )).toList();
+    });
 }
 
 
@@ -28,4 +28,5 @@ Stream<List<DeviceEntity>> streamAllDevices() {
     await datasource.updateDevice( isActive , device);
 
   }
+  
 }

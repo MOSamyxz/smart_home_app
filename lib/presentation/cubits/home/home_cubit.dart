@@ -45,8 +45,7 @@ Future<void> close() {
   return super.close();
 }
 
-
- Future<void> updateDevice(DeviceEntity device, bool isActive) async {
+Future<void> updateDevice(DeviceEntity device, bool isActive) async {
   if (state is! HomeLoaded) return;
 
   final currentState = state as HomeLoaded;

@@ -32,7 +32,6 @@ class HomeScreen extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           } else if (state is HomeLoaded) {
             final weather = state.weather;
-
             return Column(
               children: [
                 if (weather != null) WeatherWidget( weather: weather),
@@ -42,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                     itemCount: state.devices.length,
                     itemBuilder: (context, index) {
                       final device = state.devices[index];
-                      return DeviceCardItem(device: device);
+                      return DeviceCardItem(device: device );
                     },
                   ),
                 ),

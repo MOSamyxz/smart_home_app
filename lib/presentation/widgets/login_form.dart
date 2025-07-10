@@ -78,6 +78,7 @@ class _LoginFormState extends State<LoginForm> {
                 validator: (value) => value!.isEmpty ? S.of(context).password_hint : null,
                 hintText: S.of(context).password_hint,
                 prefix: Iconsax.lock4,
+                isPassword: true,
                 
 
               ),
