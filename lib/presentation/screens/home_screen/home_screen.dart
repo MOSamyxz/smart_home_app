@@ -28,13 +28,14 @@ class HomeScreen extends StatelessWidget {
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           if (state is HomeLoading) {
+            
             return Center(child: CircularProgressIndicator());
           } else if (state is HomeLoaded) {
             final weather = state.weather;
 
             return Column(
               children: [
-                if (weather != null) WeatherWidget(),
+                if (weather != null) WeatherWidget( weather: weather),
 
                 Expanded(
                   child: ListView.builder(

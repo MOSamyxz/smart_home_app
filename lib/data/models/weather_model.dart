@@ -24,4 +24,22 @@ class WeatherModel extends Weather {
       city: json['name'],
     );
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'main': {
+        'temp': temperature,
+        'feels_like': feelsLike,
+        'humidity': humidity,
+        'pressure': pressure,
+      },
+      'wind': {
+        'speed': windSpeed,
+      },
+      'visibility': visibility,
+      'weather': [
+        {'main': condition},
+      ],
+      'name': city,
+    };
+  }
 }

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_home_app/core/services/cache_helper.dart';
+import 'package:smart_home_app/generated/l10n.dart';
+import 'package:smart_home_app/presentation/cubits/app/app_cubit.dart';
+import 'package:smart_home_app/presentation/screens/auth/auth_screen.dart';
 import 'package:smart_home_app/presentation/screens/layout_screen/layout_screen.dart';
 import 'firebase_options.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-  ); 
-  
+  await CacheHelper().init();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 
@@ -17,11 +22,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Smart Home App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(useMaterial3: true),
-      home:LayoutScreen(),
+    return BlocProvider(
+      create: (context) => AppCubit()..init(),
+      child: BlocBuilder<AppCubit, AppState>(
+        builder: (context, state) {
+          return MaterialApp(
+            title: 'Smart Home App',
+            debugShowCheckedModeBanner: false,
+            locale:
+                CacheHelper.sharedPreferences.getString('lang') == 'ar'
+                    ? const Locale('ar')
+                    : const Locale('en'),
+            localizationsDelegates: [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            theme: ThemeData.dark(useMaterial3: true),
+            home: const LayoutScreen(),
+          );
+        },
+      ),
     );
   }
 }

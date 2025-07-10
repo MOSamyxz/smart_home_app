@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:smart_home_app/core/theming.dart/app_colors.dart';
 import 'package:smart_home_app/core/theming.dart/app_size.dart';
-import 'package:smart_home_app/presentation/cubits/home/home_cubit.dart';
-import 'package:smart_home_app/presentation/cubits/home/home_state.dart';
+import 'package:smart_home_app/generated/l10n.dart';
 import 'package:weather_icons/weather_icons.dart';
 import '../../../domain/entities/weather.dart';
-
 class WeatherWidget extends StatelessWidget {
-  const WeatherWidget({super.key});
+  final Weather weather;
+
+  const WeatherWidget({super.key, required this.weather});
 
   IconData _getWeatherIcon(String condition) {
     switch (condition.toLowerCase()) {
@@ -27,186 +26,136 @@ class WeatherWidget extends StatelessWidget {
         return WeatherIcons.na;
     }
   }
-
+  String _getWeatherCondition(String condition , BuildContext context) {
+    switch (condition.toLowerCase()) {
+      case 'clouds':
+        return S.of(context).clouds;
+      case 'rain':
+        return S.of(context).rain;
+      case 'clear':
+        return S.of(context).clear;
+      case 'snow':
+        return S.of(context).snow;
+      case 'thunderstorm':
+        return S.of(context).thunderstorm;
+      default:
+        return '';
+    }
+  }
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
-      builder: (context, state) {
-        if (state is HomeLoading || state is HomeInitial) {
-          return const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Center(child: CircularProgressIndicator()),
-          );
-        } else if (state is HomeLoaded && state.weather != null) {
-          final Weather weather = state.weather!;
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            padding: EdgeInsets.all(2),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppSize.borderRadius + 2),
-              gradient: LinearGradient(
-                begin: Alignment.centerRight,
-                end: Alignment.centerLeft,
-                colors: [
-                  AppColors.primary,
-                  AppColors.secondary,
-                  AppColors.tertiary,
-                ],
-              ),
-            ),
-            child: Container(
-              margin: const EdgeInsets.all(2),
-              padding: const EdgeInsets.all(8),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(AppSize.borderRadius + 2),
+        gradient: LinearGradient(
+          begin: Alignment.centerRight,
+          end: Alignment.centerLeft,
+          colors: [
+            AppColors.primary,
+            AppColors.secondary,
+            AppColors.tertiary,
+          ],
+        ),
+      ),
+      child: Container(
+        margin: const EdgeInsets.all(2),
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [AppColors.primary, AppColors.secondary],
+          ),
+          borderRadius: BorderRadius.circular(AppSize.borderRadius),
+        ),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
-                  colors: [AppColors.primary, AppColors.secondary],
+                  colors: [
+                    AppColors.darkPrimary,
+                    AppColors.darkSecondary,
+                  ],
                 ),
                 borderRadius: BorderRadius.circular(AppSize.borderRadius),
               ),
-              child: Column(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          AppColors.darkPrimary,
-                          AppColors.darkSecondary,
+                  // Left column
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Iconsax.location, color: Colors.white70, size: 16),
+                          const SizedBox(width: 4),
+                          Text(
+                            weather.city,
+                            style: const TextStyle(fontSize: 16, color: Colors.white),
+                          ),
                         ],
                       ),
-                      borderRadius: BorderRadius.circular(AppSize.borderRadius),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Iconsax.location,
-                                  color: Colors.white70,
-                                  size: 16,
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  weather.city,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              '${weather.temperature}°C',
-                              style: TextStyle(
-                                fontSize: 24,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              weather.condition,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white70,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Icon(
-                          _getWeatherIcon(weather.condition),
-                          size: 48,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
+                      Text(
+                        '${weather.temperature}°C',
+                        style: const TextStyle(fontSize: 24, color: Colors.white),
+                      ),
+                      Text(
+                        _getWeatherCondition(weather.condition ,  context) ,
+                        style: const TextStyle(fontSize: 16, color: Colors.white70),
+                      ),
+                    ],
                   ),
-                   AppSize.verticalSpacer(8.0),
-                   Row(
-                    children: [
-                        Container(
-                        padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          color: AppColors.tertiary.withValues(alpha: 0.5),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Column(
-                          children: [
-                            Text('Feels like', style: TextStyle(color: AppColors.darkGrey)),
-                            Row(
-                              children: [
-                                Icon(Icons.thermostat_outlined,color: AppColors.darkGrey, size: 20),
-                                const SizedBox(width: 4),
-                                Text('${weather.feelsLike}°C', style: TextStyle(color: AppColors.darkGrey)),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                                            const SizedBox(width: 16),
-
-                     Container(
-                        padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          color: AppColors.tertiary.withValues(alpha: 0.5),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Column(
-                          children: [
-                            Text('Humidity', style: TextStyle(color: AppColors.darkGrey)),
-                            Row(
-                              children: [
-                                Icon(Iconsax.drop3,color: AppColors.darkGrey, size: 20),
-                                const SizedBox(width: 4),
-                                Text('${weather.humidity}%', style: TextStyle(color: AppColors.darkGrey)),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                     Container(
-                        padding: const EdgeInsets.all(8.0),
-                        decoration: BoxDecoration(
-                          color: AppColors.tertiary.withValues(alpha: 0.5),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Column(
-                          children: [
-                            Text('Humidity', style: TextStyle(color: AppColors.darkGrey)),
-                            Row(
-                              children: [
-                                Icon(Iconsax.wind,color: AppColors.darkGrey, size: 20),
-                                const SizedBox(width: 4),
-                                Text('${weather.windSpeed} m/s', style: TextStyle(color: AppColors.darkGrey)),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                     
-                   ])
+                  // Right icon
+                  Icon(
+                    _getWeatherIcon(weather.condition),
+                    size: 48,
+                    color: Colors.white,
+                  ),
                 ],
               ),
             ),
-          );
-        } else if (state is HomeError) {
-          return Text(
-            'Weather Error: ${state.message}',
-            style: TextStyle(color: Colors.red),
-          );
-        }
-        return const Text('No weather data available');
-      },
+            AppSize.verticalSpacer(8.0),
+            Row(
+              children: [
+                _buildMiniCard(S.of(context).temperature, Icons.thermostat_outlined, '${weather.feelsLike}°C'),
+                const SizedBox(width: 12),
+                _buildMiniCard(S.of(context).humidity, Iconsax.drop3, '${weather.humidity}%'),
+                const SizedBox(width: 12),
+                _buildMiniCard(S.of(context).wind, Iconsax.wind, '${weather.windSpeed} m/s'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMiniCard(String title, IconData icon, String value) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        color: AppColors.tertiary.withAlpha(120),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        children: [
+          Text(title, style: TextStyle(color: AppColors.darkGrey)),
+          Row(
+            children: [
+              Icon(icon, color: AppColors.darkGrey, size: 20),
+              const SizedBox(width: 4),
+              Text(value, style: TextStyle(color: AppColors.darkGrey)),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

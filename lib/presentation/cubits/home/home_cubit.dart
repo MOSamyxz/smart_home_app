@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:geolocator/geolocator.dart';
+import 'package:smart_home_app/core/services/location_service.dart';
 import 'package:smart_home_app/domain/entities/device_entity.dart';
 import 'package:smart_home_app/domain/entities/weather.dart';
 import 'package:smart_home_app/domain/repositories/weather_repository.dart';
@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class HomeCubit extends Cubit<HomeState> {
   final DeviceUsecase deviceUsecase;
   final WeatherRepository weatherRepository;
+  final LocationService _locationService = LocationService();
 Weather? _weather;
 
   HomeCubit(this.deviceUsecase, this.weatherRepository) : super(HomeInitial());
@@ -77,8 +78,7 @@ Future<void> close() {
 
   Future<void> _initWeather() async {
     try {
-      final position = await Geolocator.getCurrentPosition(
-      );
+      final position = await _locationService.getCurrentLocation();
       loadWeather(position.latitude, position.longitude);
     } catch (e) {
       emit(HomeError("Failed to get location: $e"));

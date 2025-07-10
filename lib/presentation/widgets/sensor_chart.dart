@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:smart_home_app/core/theming.dart/app_size.dart';
 import 'package:smart_home_app/domain/entities/sensor_reading_entity.dart';
+import 'package:smart_home_app/generated/l10n.dart';
 
 class SensorChartInline extends StatelessWidget {
   final String sensorType;
@@ -41,9 +43,10 @@ final maxY = yValues.reduce((a, b) => a > b ? a : b);
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          sensorType.toUpperCase(),
+         getSensorName(sensorType   , context) ,
           style: Theme.of(context).textTheme.titleMedium,
         ),
+        AppSize.verticalSpacer(8.0),
         SizedBox(
           height: 250,
           child: LineChart(
@@ -86,7 +89,7 @@ final maxY = yValues.reduce((a, b) => a > b ? a : b);
                 leftTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
-                    interval: sensorType == 'dht11_temp' ? 1 : sensorType == 'dht11_humidity' ? 2 : sensorType == 'mq2' ? 20 : 5, // خليها حسب نوع السنسور
+                    interval: sensorType == 'dht11_temp' ? 2 : sensorType == 'dht11_humidity' ? 2 : sensorType == 'mq2' ? 20 : 5, // خليها حسب نوع السنسور
                     reservedSize: 40,
                     getTitlesWidget:
                         (value, meta) =>  Text(
@@ -110,5 +113,24 @@ final maxY = yValues.reduce((a, b) => a > b ? a : b);
         ),
       ],
     );
+  }
+}
+
+getSensorName(String sensor, BuildContext context) {
+  switch (sensor) {
+    case 'dht11_humidity':
+      return S.of(context).humidity_sensor;
+    case 'dht11_temp':
+      return S.of(context).temperature_sensor;
+    case 'ldr':
+      return S.of(context).light_sensor;
+    case 'mq2':
+      return S.of(context).gas_sensor;
+    case 'fc-28':
+      return S.of(context).soil_moisture_sensor;
+    case 'ultrasonic':
+      return S.of(context).ultrasonic_sensor;
+    default:
+      return 'Unknown Sensor';
   }
 }

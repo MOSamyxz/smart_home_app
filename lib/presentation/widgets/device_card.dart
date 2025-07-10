@@ -6,6 +6,7 @@ import 'package:smart_home_app/core/theming.dart/app_colors.dart';
 import 'package:smart_home_app/core/theming.dart/app_size.dart';
 import 'package:smart_home_app/core/theming.dart/app_text_styles.dart';
 import 'package:smart_home_app/domain/entities/device_entity.dart';
+import 'package:smart_home_app/generated/l10n.dart';
 import 'package:smart_home_app/presentation/cubits/home/home_cubit.dart';
 import 'package:smart_home_app/presentation/cubits/home/home_state.dart';
 
@@ -92,7 +93,7 @@ class DeviceCardItem extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  device.type,
+                 getName(device.type,  context),
                   style: AppTextStyles.titleSmall.copyWith(
                     color:
                         device.isActive
@@ -102,7 +103,7 @@ class DeviceCardItem extends StatelessWidget {
                 ),
                 AppSize.verticalSpacer(4.0),
                 Text(
-                  device.location,
+                 getLocation ( device.location,  context),
                   style: AppTextStyles.bodyMedium.copyWith(
                     color: AppColors.grey,
                   ),
@@ -130,5 +131,37 @@ getIcon(String device){
       return Icons.notifications_active;
     default:
       return Icons.device_unknown;
+  }
+}
+String getName(String device, BuildContext context) {
+  switch (device) {
+    case 'led':
+      return S.of(context).light;
+    case 'fan':
+      return S.of(context).fan;
+    case 'pump':
+      return S.of(context).pump;
+    case 'garage':
+      return S.of(context).garage;
+    case 'buzzer':
+      return S.of(context).buzzer;
+    default:
+      return 'Unknown Device';
+  }
+}
+String getLocation (String device, BuildContext context) {
+  switch (device) {
+    case 'living_room':
+      return S.of(context).living_room;
+    case 'kitchen':
+      return S.of(context).kitchen;
+    case 'garage_door':
+      return S.of(context).garage_door;
+    case 'garden':
+      return S.of(context).garden;
+    case 'window':
+      return S.of(context).window;
+    default:
+      return '';
   }
 }
