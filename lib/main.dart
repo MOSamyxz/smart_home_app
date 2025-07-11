@@ -5,8 +5,8 @@ import 'package:smart_home_app/core/services/cache_helper.dart';
 import 'package:smart_home_app/generated/l10n.dart';
 import 'package:smart_home_app/presentation/cubits/app/app_cubit.dart';
 import 'package:smart_home_app/presentation/screens/auth/auth_screen.dart';
-import 'package:smart_home_app/presentation/screens/layout_screen/layout_screen.dart';
 import 'firebase_options.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
             ],
             supportedLocales: S.delegate.supportedLocales,
             theme: ThemeData.dark(useMaterial3: true),
-            home: LayoutScreen(),
+            home: LoginScreen(),
           );
         },
       ),
